@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        body {
+            margin: 0px;
+            padding: 0px;
+
+        }
+
+        .Nav {
+            width: 500px;
+            height: 30px;
+            background-color: #ccc;
+        }
+
+        ul, li {
+            margin: 0px;
+            padding: 0px;
+            list-style-type: none;
+        }
+
+        .item {
+            float: left;
+            margin: 5px 10px;
+        }
+
+        .optn {
+            display: none;
+            position: absolute;
+            width: 250px;
+            height: 150px;
+            border: dashed red 1px;
+        }
+
+        ul.optn li {
+            float: left;
+            margin: 10px;
+        }
+
+        #tip {
+            position: absolute;
+            display: none;
+
+        }
+    </style>
+</head>
+<body>
+<h1>这是一个水平栏Demo项目</h1>
+<div class="Nav">
+    <ul class="content">
+        <li class="item"><a href="#">电脑产品</a></li>
+        <ul class="optn">
+            <li><a href="#">电脑产品1</a></li>
+            <li><a href="#">电脑产品2</a></li>
+            <li><a href="#">电脑产品3</a></li>
+            <li><a href="#">电脑产品4</a></li>
+        </ul>
+        <li class="item"><a href="#">硬盘产品</a></li>
+        <ul class="optn">
+            <li><a href="#">硬盘产品1</a></li>
+            <li><a href="#">硬盘产品2</a></li>
+            <li><a href="#">硬盘产品3</a></li>
+            <li><a href="#">硬盘产品4</a></li>
+        </ul>
+        <li class="item"><a href="#">数码产品</a></li>
+        <ul class="optn">
+            <li><a href="#">数码产品1</a></li>
+            <li><a href="#">数码产品2</a></li>
+            <li><a href="#">数码产品3</a></li>
+            <li><a href="#">数码产品4</a></li>
+        </ul>
+        <li class="item"><a href="#">游戏产品</a></li>
+        <ul class="optn">
+            <li><a href="#">游戏产品1</a></li>
+            <li><a href="#">游戏产品2</a></li>
+            <li><a href="#">游戏产品3</a></li>
+            <li><a href="#">游戏产品4</a></li>
+        </ul>
+    </ul>
+    <img src="image/sort.png" id="tip">
+</div>
+</body>
+</html>
+<script type="text/javascript">
+
+    var elementHeight; //元素的高度
+    var elementWidht;//元素的宽度
+    var elementTop;//元素距离顶端top值
+    var elementLeft;//元素距离左边left值
+
+    var childLeft;//子项显示距左边值
+    var childTop;//子项显示距顶端值
+    function calPosition(obj) {
+        elementHeight = $(obj).height();
+        elementWidht = $(obj).width();
+        elementTop = $(obj).offset().top;
+        elementLeft = $(obj).offset().left;
+
+        childLeft = elementLeft + "px";
+        childTop = elementTop + elementHeight - 5 + "px";
+    }
+    $(function () {
+
+        $(".item").mouseover(function () {
+
+            calPosition(this);
+            $(this).next("ul").show().css({"top": childTop, "left": elementLeft - elementWidht / 2 + "px"});
+            $("#tip").show().css({"top": childTop, "left": elementLeft + elementWidht / 2 + "px"});
+        }).mouseleave(function () {
+
+            $(this).next("ul").hide();
+            $("#tip").hide();
+
+        })
+        $(".optn").mouseover(function () {
+                    $(this).show();
+                    var ele = $(this).prev("li");
+                    calPosition(ele);
+                    $("#tip").show().css({"top": childTop, "left": childLeft});
+                })
+                .mouseleave(function () {
+                    $(this).hide();
+                    $("#tip").hide();
+                })
+    })
+
+</script>
